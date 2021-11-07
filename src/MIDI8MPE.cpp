@@ -536,7 +536,7 @@ struct MIDI8MPE : Module {
 	void process(const ProcessArgs &args) override {
 
 		midi::Message msg;
-		while (midiInput.shift(&msg)) {
+		while (midiInput.tryPop(&msg, args.frame)) {
 			processMessage(msg);
 		}
 
@@ -1221,7 +1221,7 @@ struct learnMccButton : SvgSwitch {
 		addFrame(APP->window->loadSvg(asset::plugin(pluginInstance, "res/learnMcc_0.svg")));
 		addFrame(APP->window->loadSvg(asset::plugin(pluginInstance, "res/learnMcc_1.svg")));
 	}
-	void randomize() override{
+	void randomize(){
 	}
 };
 
@@ -1232,7 +1232,7 @@ struct springDataKnob : SvgKnob {
 		setSvg(APP->window->loadSvg(asset::plugin(pluginInstance, "res/dataKnob.svg")));
 		shadow->opacity = 0.f;
 	}
-	void randomize() override{
+	void randomize(){
 	}
 	void onButton(const event::Button &e) override{
 		math::Vec c = box.size.div(2);
@@ -1278,7 +1278,7 @@ struct MIDI8MPEWidget : ModuleWidget {
 		float xPos = 8.f;//61;
 		float yPos = 18.f;
 		{
-			MidiWidget *midiWidget = createWidget<MidiWidget>(Vec(xPos,yPos));
+			MidiDisplay *midiWidget = createWidget<MidiDisplay>(Vec(xPos,yPos));
 			midiWidget->box.size = Vec(132.f,41.f);
 			midiWidget->setMidiPort(module ? &module->midiInput : NULL);
 			

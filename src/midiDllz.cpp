@@ -55,22 +55,22 @@ void MIDIdisplay::updateMidiSettings (int dRow, bool valup){
 		case 0: {
 			bool resetdr = true;
 			int drIx = 0;
-			int midiDrivers = static_cast<int>(midiInput->getDriverIds().size());
-			for (int driverId : midiInput->getDriverIds()) {
+			int midiDrivers = static_cast<int>(midi::getDriverIds().size());
+			for (int driverId : midi::getDriverIds()) {
 				if (driverId == midiInput->driverId){
 					if (valup){
-						if (drIx < midiDrivers - 1) midiInput->setDriverId(midiInput->getDriverIds().at(drIx + 1));
-						else midiInput->setDriverId(midiInput->getDriverIds().front());
+						if (drIx < midiDrivers - 1) midiInput->setDriverId(midi::getDriverIds().at(drIx + 1));
+						else midiInput->setDriverId(midi::getDriverIds().front());
 					}else {//val down
-						if (drIx > 0) midiInput->setDriverId(midiInput->getDriverIds().at(drIx - 1));
-						else midiInput->setDriverId(midiInput->getDriverIds().back());
+						if (drIx > 0) midiInput->setDriverId(midi::getDriverIds().at(drIx - 1));
+						else midiInput->setDriverId(midi::getDriverIds().back());
 					}
 					resetdr = false;
 					break;
 				}
 				drIx ++;
 			}
-			if (resetdr) midiInput->setDriverId(midiInput->getDriverIds().front());
+			if (resetdr) midiInput->setDriverId(midi::getDriverIds().front());
 			if (midiInput->getDeviceIds().size() > 0){
 				midiInput->setDeviceId(0);
 				*mdriverJ = midiInput->driverId;//valid for saving
@@ -134,7 +134,7 @@ void MIDIdisplay::updateMidiSettings (int dRow, bool valup){
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 void MIDIdisplay::reDisplay(){
-	mdriver = midiInput->getDriverName(midiInput->driverId);// driver name
+	mdriver = midiInput->getDriver()->getName();
 	if (midiInput->deviceId > -1){
 		textColor = nvgRGB(0xbb,0xbb,0xbb);
 		mdevice = midiInput->getDeviceName(midiInput->deviceId);// device
@@ -193,7 +193,7 @@ void MIDIdisplay::draw(const DrawArgs &args){
 						}
 					}
 				}else{ //initial searchdev / (no saved devices)
-					midiInput->setDriverId(midiInput->getDriverIds().front());
+					midiInput->setDriverId(midi::getDriverIds().front());
 					if (midiInput->getDeviceIds().size() > 0){
 						midiInput->setDeviceId(midiInput->getDeviceIds().front());
 						*mdriverJ = midiInput->driverId;//valid for saving

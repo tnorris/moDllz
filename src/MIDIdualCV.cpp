@@ -300,7 +300,7 @@ struct MIDIdualCV :  Module {
 //////////////          ////////  /////////         /////  ////////////////////////////
 	void process(const ProcessArgs &args) override {
 		midi::Message msg;
-		while (midiInput.shift(&msg)) {
+		while (midiInput.tryPop(&msg, args.frame)) {
 			processMessage(msg);
 		}
 		float pitchwheel;

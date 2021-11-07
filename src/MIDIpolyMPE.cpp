@@ -943,7 +943,7 @@ struct MIDIpolyMPE : Module {
 		outputs[RVEL_OUTPUT].setChannels(numVOch);
 		outputs[GATE_OUTPUT].setChannels(numVOch);
 		midi::Message msg;
-		while (midiInput.shift(&msg)) {
+		while (midiInput.tryPop(&msg, args.frame)) {
 			processMessage(msg);
 		}
 		float pbVo = 0.f, pbVoice = 0.f;
@@ -1460,7 +1460,7 @@ struct springDataKnobB : SvgKnob {
 		setSvg(APP->window->loadSvg(asset::plugin(pluginInstance, "res/dataKnobB.svg")));
 		shadow->opacity = 0.f;
 	}
-	void randomize() override{
+	void randomize(){
 	}
 	void onButton(const event::Button &e) override{
 		if (e.button == GLFW_MOUSE_BUTTON_LEFT && e.action == GLFW_RELEASE) this->resetAction();

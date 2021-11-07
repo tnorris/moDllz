@@ -25,7 +25,7 @@ struct MidiNoteData {
 
 struct MIDIpoly16 : Module {
  static const int numPads = 16;
-	
+
 	enum ParamIds {
 		ENUMS(KEYBUTTON_PARAM, 16),
 		ENUMS(SEQSEND_PARAM, 16),
@@ -780,7 +780,7 @@ void MIDIpoly16::process(const ProcessArgs &args) {
 ////////// MIDI MESSAGE ////////
 	
 	midi::Message msg;
-	while (midiInput.shift(&msg)) {
+	while (midiInput.tryPop(&msg, args.frame)) {
 		processMessage(msg);
 	}
 	
@@ -1828,7 +1828,7 @@ struct SelectorKnob : moDllzSelector32 {
 	minAngle = -0.88*M_PI;
 	maxAngle = 1.f*M_PI;
 	}
-	void randomize() override{
+	void randomize(){
 	}
 };
 struct RatioKnob : moDllzSmSelector {
@@ -1837,7 +1837,7 @@ struct RatioKnob : moDllzSmSelector {
 		minAngle = -0.871*M_PI;
 		maxAngle = 1.0*M_PI;
 	}
-	void randomize() override{
+	void randomize(){
 	}
 };
 struct SelectorOct : moDllzSelector32 {//Oct
@@ -1846,7 +1846,7 @@ struct SelectorOct : moDllzSelector32 {//Oct
 		minAngle = -0.44f*M_PI;
 		maxAngle = 0.44f*M_PI;
 	}
-	void randomize() override{
+	void randomize(){
 	}
 };
 struct Knob26 : moDllzKnob26 {///Unison
@@ -1855,7 +1855,7 @@ struct Knob26 : moDllzKnob26 {///Unison
 		minAngle = -0.75*M_PI;
 		maxAngle = 0.75*M_PI;
 	}
-	void randomize() override{
+	void randomize(){
 	}
 };
 struct Knob26Snap : moDllzKnob26 {///swing
@@ -1872,7 +1872,7 @@ struct KnobSnap : moDllzKnobM {//BPM
 		minAngle = -0.836*M_PI;
 		maxAngle = 1.0*M_PI;
 	}
-	void randomize() override{
+	void randomize(){
 	}
 };
 struct TangerineLight : GrayModuleLightWidget {
@@ -1903,7 +1903,7 @@ struct MIDIpoly16Widget : ModuleWidget{
 		float xPos = 8.f;//61;
 		float yPos = 18.f;
 		
-		MidiWidget *midiWidget = createWidget<MidiWidget>(Vec(xPos,yPos));
+		MidiDisplay *midiWidget = createWidget<MidiDisplay>(Vec(xPos,yPos));
 		midiWidget->box.size = Vec(128.f,36.f);
 		midiWidget->setMidiPort(module ? &module->midiInput : NULL);
 		

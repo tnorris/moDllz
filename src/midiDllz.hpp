@@ -60,7 +60,7 @@ struct DispBttnL : SvgSwitch {
 	MIDIdisplay *md = NULL;
 	int id = 0;
 	void onButton(const event::Button &e) override;
-	void randomize() override{
+	void randomize(){
 	}
 };
 struct DispBttnR : SvgSwitch {
@@ -68,7 +68,7 @@ struct DispBttnR : SvgSwitch {
 	MIDIdisplay *md = NULL;
 	int id = 0;
 	void onButton(const event::Button &e) override;
-	void randomize() override{
+	void randomize(){
 	}
 };
 

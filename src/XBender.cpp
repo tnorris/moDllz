@@ -443,7 +443,7 @@ struct xbendKnob : SvgKnob {
 		setSvg(APP->window->loadSvg(asset::plugin(pluginInstance, "res/xbendKnob.svg")));
 		shadow->opacity = 0.f;
 	}
-	void randomize() override{
+	void randomize(){
 	}
 };
 
@@ -454,7 +454,7 @@ struct zTTrim : SvgKnob {
 		setSvg(APP->window->loadSvg(asset::plugin(pluginInstance, "res/zTTrim.svg")));
 		shadow->opacity = 0.f;
 	}
-	void randomize() override{
+	void randomize(){
 	}
 };
 
@@ -466,7 +466,7 @@ struct cTTrim : SvgKnob {
 		setSvg(APP->window->loadSvg(asset::plugin(pluginInstance, "res/cTTrim.svg")));
 		shadow->opacity = 0.f;
 	}
-	void randomize() override{
+	void randomize(){
 	}
 };
 
@@ -475,7 +475,7 @@ struct autoZoom : SvgSwitch {
 		addFrame(APP->window->loadSvg(asset::plugin(pluginInstance, "res/autoButton.svg")));
 		addFrame(APP->window->loadSvg(asset::plugin(pluginInstance, "res/autoButton.svg")));
 	}
-	void randomize() override{
+	void randomize(){
 	}
 };
 
@@ -484,7 +484,7 @@ struct snapAxisButton : SvgSwitch {
 	  addFrame(APP->window->loadSvg(asset::plugin(pluginInstance, "res/snapButton.svg")));
 	  addFrame(APP->window->loadSvg(asset::plugin(pluginInstance, "res/snapButton.svg")));
   }
-	void randomize() override{
+	void randomize(){
 	}
 };
 
